@@ -106,3 +106,5 @@ dist
 # Jest test
 coverage
 jest.config.js
+
+words.txt
