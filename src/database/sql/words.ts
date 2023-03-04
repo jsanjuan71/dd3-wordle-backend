@@ -8,10 +8,15 @@ const createWordsTable: string = `
         CONSTRAINT words_pk PRIMARY KEY (id)
     );
     CREATE UNIQUE INDEX words_id_idx ON public.words (id);
-    CREATE UNIQUE INDEX words_name_idx ON public.words ("name");`;
+    CREATE UNIQUE INDEX words_name_idx ON public.words ("name");`
 
 const insertWordRow: string = `
-    INSERT INTO public.words (name) VALUES($1);`;
+    INSERT INTO public.words (name) VALUES($1);`
+
+const getRandomWordExcludingId = `
+    SELECT w.id FROM public.words as w offset random() * (select count(*) FROM public.words WHERE id != $1)
+    LIMIT 1;`
 
 
-export {deleteWordsTable, createWordsTable, insertWordRow}
+
+export {deleteWordsTable, createWordsTable, insertWordRow, getRandomWordExcludingId}
