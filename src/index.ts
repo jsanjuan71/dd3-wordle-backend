@@ -1,8 +1,9 @@
-import app from './app'
+
 import dotenv from 'dotenv'
 import { seedWords } from './database/seeder'
-
 dotenv.config()
+
+import app from './app'
 
 const port = process.env.SERVER_PORT
 

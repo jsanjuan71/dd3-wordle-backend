@@ -34,3 +34,8 @@ The wordle app api services
         ```
         npm run build
         ```
+6. Remember to send the Authorization key on header of protected endpoints, here you are an example:
+    ```
+    curl --location 'http://localhost:9000/' \
+        --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ikp1bGlvIFNhbmp1YW4iLCJpYXQiOjE2Nzc4ODk2MzJ9.Q1ZzRMCuzpQVlX4jw9vUatnxpjP3caZvMcjTOC-JcQU'
+    ``` 
