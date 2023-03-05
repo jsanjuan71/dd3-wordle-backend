@@ -12,9 +12,10 @@ type EncryptInfo = {
     data: string
 }
 
-const encrypt = (source: string) : EncryptInfo|null => {
+const encrypt = (source: string, salt?: string) : EncryptInfo|null => {
     try {
-        const salt: string = crypto.randomBytes( encryptConfig.saltLength ).toString("hex")
+        if(typeof salt === "undefined")
+            salt = crypto.randomBytes( encryptConfig.saltLength ).toString("hex")
         const encrypted: string = crypto
             .pbkdf2Sync(source, salt, encryptConfig.iterarions, encryptConfig.length, encryptConfig.algorythm)
             .toString("hex")
@@ -24,5 +25,6 @@ const encrypt = (source: string) : EncryptInfo|null => {
         return null
     }
 }
+
 
 export {EncryptInfo, encrypt}

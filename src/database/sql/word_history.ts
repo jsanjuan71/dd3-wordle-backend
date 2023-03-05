@@ -1,8 +1,9 @@
+const TABLE_NAME = "public.word_history"
 
-const deleteWordsHistoryTable: string = `DROP TABLE IF EXISTS public.word_history`
+const deleteWordsHistoryTable: string = `DROP TABLE IF EXISTS ${TABLE_NAME}`
 
 const createWordsHistoryTable: string = `
-    CREATE TABLE IF NOT EXISTS public.word_history (
+    CREATE TABLE IF NOT EXISTS ${TABLE_NAME} (
         id bigserial NOT NULL,
         word_id bigserial NOT NULL,
         is_active bool NOT NULL DEFAULT FALSE,
@@ -14,17 +15,17 @@ const createWordsHistoryTable: string = `
 
 
 const insertWordHistoryRow: string = `
-    INSERT INTO public.word_history (word_id, is_active) VALUES($1, true);`
+    INSERT INTO ${TABLE_NAME} (word_id, is_active) VALUES($1, true);`
 
 const getLastActiveWord = `
-    SELECT * from public.word_history
+    SELECT * from ${TABLE_NAME}
     WHERE is_active = TRUE
         AND closed_at IS NULL
     ORDER BY created_at desc
     LIMIT 1`
 
 const setLastActiveWord = `
-    UPDATE public.word_history
+    UPDATE ${TABLE_NAME}
     SET is_active = FALSE
     WHERE id = $1`
 

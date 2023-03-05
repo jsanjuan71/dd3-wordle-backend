@@ -8,7 +8,7 @@ const select = async(query: string, params?: any[]) : Promise<DatabaseResponse> 
     var client : PoolClient
     try {
         client = await pool.connect()
-        const {rows} : QueryResult<any> = await client.query(query, params)
+        const {rows} = await client.query(query, params)
         response.done = true
         response.result = rows
         client.release()
@@ -24,7 +24,7 @@ const upsert = async(query: string, params?: any[]) : Promise<DatabaseResponse> 
     var client : PoolClient
     try {
         client = await pool.connect()
-        const {rows} : QueryResult<any> = await client.query(query, params)
+        const {rows} = await client.query(query, params)
         response.done = true
         response.result = rows
         client.release()

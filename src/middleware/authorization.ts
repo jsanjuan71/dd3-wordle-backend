@@ -6,7 +6,7 @@ import { StatusCodes } from 'http-status-codes';
 
 const SECRET_KEY: Secret = process.env.JWT_SECRET||'';
 
-const generateToken = (payload: UserPayload ) : string => {
+export const generateToken = (payload: UserPayload ) : string => {
     return jwt.sign(payload, SECRET_KEY);
 }
 
