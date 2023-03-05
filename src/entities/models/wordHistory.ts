@@ -1,5 +1,4 @@
 import { QueryResult } from "pg"
-import { Model } from "./model"
 
 export type WordHistory = {
     id?: number
@@ -9,14 +8,12 @@ export type WordHistory = {
     closedAt: Date
 }
 
-export class WordHistoryModel implements Model<WordHistory>{
-    mapper(data: QueryResult): WordHistory {
-        return {
-            id: data.id,
-            wordId: data.word_id,
-            isActive: data.is_active,
-            createdAt: data.created_at,
-            closedAt: data.closed_at
-        }
+export const WordHistoryMapper = (data: QueryResult): WordHistory => {
+    return {
+        id: data.id,
+        wordId: data.word_id,
+        isActive: data.is_active,
+        createdAt: data.created_at,
+        closedAt: data.closed_at
     }
 }

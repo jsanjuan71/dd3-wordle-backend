@@ -3,8 +3,11 @@ import { validateAccess } from './middleware/authorization'
 import { checkDatabase } from './services/healthCheck'
 import { ApiResponse } from './entities/apiResponse';
 import { RequestWithPayload, UserPayload } from './entities/userPayload';
+import userRoutes from './routes/users'
 
 const app: Express = express()
+
+app.use( express.json() )
 
 app.get('/', validateAccess, async(req: Request, res: Response) => {
     const dbAlive = await checkDatabase()
@@ -22,5 +25,7 @@ app.get('/', validateAccess, async(req: Request, res: Response) => {
     }
     res.send(response);
 })
+
+app.use( "/users", userRoutes )
 
 export default app

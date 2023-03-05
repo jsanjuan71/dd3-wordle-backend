@@ -1,9 +1,13 @@
 import { Pool, PoolClient, QueryResult } from "pg";
 import { DatabaseResponse } from "./response";
+import { createUsersTable } from "./sql/users";
+import { createWordsTable } from "./sql/words";
 import { createWordsHistoryTable } from "./sql/word_history";
 
 const migrators: string[] = [
-    createWordsHistoryTable
+    createWordsTable,
+    createWordsHistoryTable,
+    createUsersTable
 ]
 
 const pool : Pool = new Pool()

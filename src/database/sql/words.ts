@@ -7,14 +7,14 @@ const createWordsTable: string = `
         "name" varchar NOT NULL,
         CONSTRAINT words_pk PRIMARY KEY (id)
     );
-    CREATE UNIQUE INDEX words_id_idx ON public.words (id);
-    CREATE UNIQUE INDEX words_name_idx ON public.words ("name");`
+    CREATE UNIQUE INDEX IF NOT EXISTS words_id_idx ON public.words (id);
+    CREATE UNIQUE INDEX IF NOT EXISTS words_name_idx ON public.words ("name");`
 
 const insertWordRow: string = `
     INSERT INTO public.words (name) VALUES($1);`
 
 const getRandomWordExcludingId = `
-    SELECT w.id FROM public.words as w offset random() * (select count(*) FROM public.words WHERE id != $1)
+    SELECT w.id, w.name FROM public.words as w offset random() * (select count(*) FROM public.words WHERE id != $1)
     LIMIT 1;`
 
 
