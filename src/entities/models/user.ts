@@ -1,7 +1,7 @@
 import { QueryResult } from "pg"
 
 export type User = {
-    id?: number
+    id: number
     username: string
     password?: string
     salt?: string
@@ -9,7 +9,7 @@ export type User = {
     deletedAt?: Date
 }
 
-export const UserMapper = (data: QueryResult): User => {
+export const UserMapper = (data: any): User => {
     return {
         id: data.id,
         username: data.username,

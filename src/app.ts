@@ -1,9 +1,10 @@
 import express, { Express, Request, Response } from 'express'
 import { validateAccess } from './middleware/authorization'
 import { checkDatabase } from './services/healthCheck'
-import { ApiResponse } from './entities/apiResponse';
-import { RequestWithPayload, UserPayload } from './entities/userPayload';
+import { ApiResponse } from './entities/apiResponse'
+import { RequestWithPayload, UserPayload } from './entities/userPayload'
 import userRoutes from './routes/users'
+import authRoutes from './routes/auth'
 
 const app: Express = express()
 
@@ -27,5 +28,6 @@ app.get('/', validateAccess, async(req: Request, res: Response) => {
 })
 
 app.use( "/users", userRoutes )
+app.use("/auth", authRoutes)
 
 export default app

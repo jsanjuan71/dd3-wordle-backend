@@ -19,7 +19,7 @@ router.get("/:id", validateAccess, async(req: Request, res: Response) : Promise<
     res.status( StatusCodes.NOT_IMPLEMENTED ).send(response)
 })
 
-router.post("/", validateAccess, async(req: Request, res: Response) : Promise<void> => {
+router.post("/", async(req: Request, res: Response) : Promise<void> => {
     let response: ApiResponse<UserResponse> = {done: false }
     const {done, data} = await createUser(req.body)
     response.done = done

@@ -8,7 +8,7 @@ export type WordHistory = {
     closedAt: Date
 }
 
-export const WordHistoryMapper = (data: QueryResult): WordHistory => {
+export const WordHistoryMapper = (data: any): WordHistory => {
     return {
         id: data.id,
         wordId: data.word_id,
