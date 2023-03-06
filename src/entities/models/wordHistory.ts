@@ -1,7 +1,7 @@
 import { QueryResult } from "pg"
 
 export type WordHistory = {
-    id?: number
+    id: number
     wordId: number
     isActive: boolean
     createdAt: Date

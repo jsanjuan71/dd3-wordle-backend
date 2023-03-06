@@ -21,7 +21,7 @@ export const UserMapper = (data: any): User => {
 }
 
 export type UserResponse = {
-    id?: number
+    id: number
     username: string
     createdAt?: Date
 }
