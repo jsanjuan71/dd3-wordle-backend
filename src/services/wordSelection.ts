@@ -4,6 +4,7 @@ import { getLastActiveWord, insertWordHistoryRow, setLastActiveWord } from "../d
 import { Word, WordMapper } from "../entities/models/word"
 import { WordHistory, WordHistoryMapper } from "../entities/models/wordHistory"
 import { ServiceResponse } from "../entities/serviceResponse"
+import { resetGames } from "./games"
 
 /**
  * Creates a new word 
@@ -28,7 +29,7 @@ const createWord = async(excluding: number|null) : Promise<ServiceResponse<Word>
 } 
 
 /**
- * Selects a word, deactivate previous if exists, finally udates the word history
+ * Selects a word, deactivate previous if exists, udates the word history and finally resets all games
  * @param {number|null} excluding - The Word id to exclude, if null nothing excluded
  * @returns {ServiceResponse<Word>} - The new word or errors
  */
@@ -45,6 +46,8 @@ const selectWord = async() : Promise<ServiceResponse<Word>> => {
         if(!createdWord.done)   throw Error(createdWord.data as string)
 
         await upsert( insertWordHistoryRow, [(createdWord.data as Word).id] )
+
+        await resetGames()
 
         response.done = true
         response.data = (createdWord.data as Word)

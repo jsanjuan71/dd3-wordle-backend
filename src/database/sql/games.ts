@@ -23,9 +23,20 @@ const upsertGameRow: string = `
             UPDATE SET word_id = EXCLUDED.word_id, attemps = EXCLUDED.attemps
         RETURNING id, user_id, word_id, attemps, created_at;`
 
+const resetAttempsForAllGames: string = `
+    UPDATE ${TABLE_NAME}
+    SET attemps = 0
+    WHERE deleted_at IS NULL AND attemps != 0`
+
+const fetchAllActiveGames: string = `
+    SELECT id, user_id, attemps, word_id FROM ${TABLE_NAME}
+    WHERE deleted_at IS NULL`
+
 
 export {
     deleteGamesTable, 
     createGamesTable, 
-    upsertGameRow
+    upsertGameRow,
+    resetAttempsForAllGames,
+    fetchAllActiveGames
 }

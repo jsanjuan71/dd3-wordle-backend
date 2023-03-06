@@ -19,9 +19,15 @@ const createGameHistoryTable: string = `
 const insertGameHistoryRow: string = `
     INSERT INTO ${TABLE_NAME} (game_id) VALUES($1) RETURNING id;`
 
+const closeGameHistoryRow: string = `
+    UPDATE ${TABLE_NAME}
+    SET closed_at = NOW(), attemps = $2, won = $3 
+    WHERE closed_at IS NULL AND game_id = $1
+    RETURNING id, game_id`
 
 export {
     deleteGameHistoryTable, 
     createGameHistoryTable, 
-    insertGameHistoryRow
+    insertGameHistoryRow,
+    closeGameHistoryRow
 }

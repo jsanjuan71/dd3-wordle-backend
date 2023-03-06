@@ -10,7 +10,7 @@ export type GameHistory = {
 export const GameHistoryMapper = (data: any): GameHistory => {
     return {
         id: data.id,
-        gameId: data.user_id,
+        gameId: data.game_id,
         attemps: data.attemps,
         won: data.won,
         createdAt: data.created_at,
