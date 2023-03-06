@@ -20,7 +20,7 @@ router.get("/:id", validateAccess, async(req: Request, res: Response) : Promise<
 })
 
 router.post("/", async(req: Request, res: Response) : Promise<void> => {
-    let response: ApiResponse<UserResponse> = {done: false }
+    let response: ApiResponse<UserResponse|string> = {done: false }
     const {done, data} = await createUser(req.body)
     response.done = done
     if(done) {

@@ -2,7 +2,7 @@ import { QueryResult } from "pg"
 
 export type Word = {
     id: number
-    name?: number
+    name: number
 }
 
 export const WordMapper = (data: any): Word => {

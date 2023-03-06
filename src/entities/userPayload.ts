@@ -4,6 +4,7 @@ import { JwtPayload } from 'jsonwebtoken';
 export interface UserPayload {
     id: number
     name? : string
+    gameId? : number
 }
 
 export interface RequestWithPayload extends Request {

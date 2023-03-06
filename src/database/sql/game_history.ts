@@ -17,19 +17,11 @@ const createGameHistoryTable: string = `
     );`
 
 const insertGameHistoryRow: string = `
-    INSERT INTO ${TABLE_NAME} (username, salt, password) VALUES($1, $2, $3) RETURNING id, username;`
-
-const fetchGameHistoryByUserId: string = `
-    SELECT id, username, password, salt, created_at FROM ${TABLE_NAME} WHERE deleted_at IS NULL AND username = $1`
-
-const fetchGameHistoryByWordId: string = `
-    SELECT id, username, password, salt, created_at FROM ${TABLE_NAME} WHERE deleted_at IS NULL AND username = $1`
+    INSERT INTO ${TABLE_NAME} (game_id) VALUES($1) RETURNING id;`
 
 
 export {
     deleteGameHistoryTable, 
     createGameHistoryTable, 
-    insertGameHistoryRow,
-    fetchGameHistoryByUserId,
-    fetchGameHistoryByWordId
+    insertGameHistoryRow
 }

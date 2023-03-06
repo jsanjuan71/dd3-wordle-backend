@@ -4,7 +4,14 @@ import { User, UserMapper } from "../entities/models/user"
 import { ServiceResponse } from "../entities/serviceResponse"
 import { encrypt, EncryptInfo } from "../tools/encrypt"
 import { generateToken } from '../middleware/authorization'
+import { createGame } from "./games"
+import { Game } from "../entities/models/game"
 
+/**
+ * 
+ * @param {any} data - Object containing username and password values 
+ * @returns {ServiceResponse<User>} The new user data or errors
+ */
 const createUser = async(data: any) : Promise<ServiceResponse<User>> => {
     var response: ServiceResponse<User> = {done: false}
     try {
@@ -27,6 +34,10 @@ const createUser = async(data: any) : Promise<ServiceResponse<User>> => {
     }
 }
 
+/**
+ * @param {any} data - Object containing username and password values 
+ * @returns {ServiceResponse<string>} - The generated token or errors
+ */
 const validateUser = async(data: any) : Promise<ServiceResponse<string>> => {
     var response: ServiceResponse<string> = {done: false}
     try {
@@ -37,13 +48,17 @@ const validateUser = async(data: any) : Promise<ServiceResponse<string>> => {
         const encrypted: EncryptInfo|null = encrypt(data.password, user.salt )
         if(!encrypted)  throw Error(`Encryption error`)
 
-        if(encrypted.data === user.password){
-            response.data = generateToken({
-                id: user.id,
-                name: data.username
-            })
-            response.done = true
-        } else throw Error("Password does not match")
+        if(encrypted.data !== user.password)    throw Error("Password does not match")
+
+        const createdGame = await createGame(user.id)
+        if(!createdGame.done)   throw Error(createdGame.data as string)
+        
+        response.data = generateToken({
+            id: user.id,
+            name: data.username,
+            gameId: (createdGame.data as Game).id 
+        })
+        response.done = true
         
     } catch (error: any) {
         console.error(error.message)

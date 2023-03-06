@@ -25,7 +25,14 @@ const migrateAll = async() : Promise<DatabaseResponse> => {
             let response = client.query(migration)
             return response
         } )
-        response.result = await Promise.all(queries)
+        
+        response.result = (await Promise.all(queries))
+            .map((query: QueryResult) => {
+                return {
+                    "command": query.command,
+                    "affectedRows": query.rowCount
+                }
+            } )
         response.done = true
         client.release()
     } catch (error: any) {
