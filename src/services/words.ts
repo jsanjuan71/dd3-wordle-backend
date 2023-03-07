@@ -1,6 +1,6 @@
 import { select, upsert } from "../database/postgresql"
 import { getRandomWordExcludingId } from "../database/sql/words"
-import { getLastActiveWord, insertWordHistoryRow, setLastActiveWord } from "../database/sql/word_history"
+import { getLastActiveWord, getLastActiveWordName, insertWordHistoryRow, setLastActiveWord } from "../database/sql/word_history"
 import { Word, WordMapper } from "../entities/models/word"
 import { WordHistory, WordHistoryMapper } from "../entities/models/wordHistory"
 import { ServiceResponse } from "../entities/serviceResponse"
@@ -59,4 +59,22 @@ const selectWord = async() : Promise<ServiceResponse<Word>> => {
     }
 }
 
-export {createWord, selectWord}
+const getCurrentWord = async() : Promise<ServiceResponse<Word>> => {
+    var response: ServiceResponse<Word> = {done: false}
+    try {
+        const {done, result} = await select( getLastActiveWordName )
+        if(!done || !result.length) throw Error("No active word found")
+        
+        let word: Word = WordMapper(result.pop())
+
+        response.done = true
+        response.data = word
+    } catch (error: any) {
+        console.error(error.message)
+        response.data = error.message
+    } finally {
+        return response
+    }
+}
+
+export {createWord, selectWord, getCurrentWord}

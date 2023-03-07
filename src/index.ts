@@ -6,10 +6,10 @@ dotenv.config()
 
 import app from './app'
 import { migrateAll } from './database/migrations'
-import { selectWord } from './services/wordSelection'
+import { selectWord } from './services/words'
 
 const port = process.env.SERVER_PORT
-const cronTimer: string = "*/60 * * * * *" // every 30 seconds
+const cronTimer: string = "*/660 * * * * *" // every 30 seconds
 
 app.listen(port, async() => {
     console.info(`Running at http://localhost:${port}`)
@@ -23,7 +23,7 @@ app.listen(port, async() => {
     }
     
     cron.schedule(cronTimer, async() => {
-        console.info("Selecting word", ( await selectWord() )) 
+        //console.info("Selecting word", ( await selectWord() )) 
     } )
     
 })

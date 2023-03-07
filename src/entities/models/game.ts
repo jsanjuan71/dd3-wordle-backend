@@ -17,3 +17,9 @@ export const GameMapper = (data: any): Game => {
         deletedAt: data.deleted_at
     }
 }
+
+export type GameResponse = {
+    id: number
+    username: string
+    createdAt?: Date
+}
