@@ -33,3 +33,15 @@ export const UserResponseMapper = (usr: User): UserResponse => {
         createdAt: usr.createdAt
     }
 }
+
+export type UserStats = {
+    played: number
+    won: number
+}
+
+export const UserStatsMapper = (data: any): UserStats => {
+    return {
+        played: data.played,
+        won: data.won
+    }
+}

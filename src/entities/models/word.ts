@@ -22,3 +22,8 @@ export enum LetterValue {
     Exists,
     NotExists
 }
+
+export type TopWord = {
+    wordId: number,
+    wons: number
+}
