@@ -33,10 +33,15 @@ const fetchAllActiveGames: string = `
     WHERE deleted_at IS NULL`
 
 
+const getGameById: string = `
+    SELECT id, user_id, attemps FROM ${TABLE_NAME}
+    WHERE id = $1`
+
 export {
     deleteGamesTable, 
     createGamesTable, 
     upsertGameRow,
     resetAttempsForAllGames,
-    fetchAllActiveGames
+    fetchAllActiveGames,
+    getGameById
 }

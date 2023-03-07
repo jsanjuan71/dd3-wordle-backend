@@ -5,6 +5,7 @@ import { ApiResponse } from './entities/apiResponse'
 import { RequestWithPayload, UserPayload } from './entities/userPayload'
 import userRoutes from './routes/users'
 import authRoutes from './routes/auth'
+import gameRoutes from './routes/games'
 
 const app: Express = express()
 
@@ -29,5 +30,6 @@ app.get('/', validateAccess, async(req: Request, res: Response) => {
 
 app.use( "/users", userRoutes )
 app.use("/auth", authRoutes)
+app.use("/game", gameRoutes)
 
 export default app

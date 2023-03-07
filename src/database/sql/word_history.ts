@@ -18,11 +18,18 @@ const insertWordHistoryRow: string = `
     INSERT INTO ${TABLE_NAME} (word_id, is_active) VALUES($1, true);`
 
 const getLastActiveWord = `
-    SELECT * from ${TABLE_NAME}
+    SELECT id, word_id, is_active, created_at, closed_at  FROM ${TABLE_NAME}
     WHERE is_active = TRUE
         AND closed_at IS NULL
     ORDER BY created_at desc
     LIMIT 1`
+
+const getLastActiveWordName = `
+    SELECT word.id, word.name  FROM ${TABLE_NAME} as history
+    LEFT JOIN public.words as word ON history.word_id = word.id
+    WHERE history.is_active = TRUE
+        AND history.closed_at IS NULL`
+
 
 const setLastActiveWord = `
     UPDATE ${TABLE_NAME}
@@ -34,5 +41,6 @@ export {
     createWordsHistoryTable, 
     insertWordHistoryRow, 
     getLastActiveWord, 
-    setLastActiveWord
+    setLastActiveWord,
+    getLastActiveWordName
 }
