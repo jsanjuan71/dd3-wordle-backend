@@ -25,9 +25,16 @@ const closeGameHistoryRow: string = `
     WHERE closed_at IS NULL AND game_id = $1
     RETURNING id, game_id`
 
+const fetchGamesByUserId: string = `
+    SELECT count(history.id) as played, count(DISTINCT CASE WHEN history.won = TRUE THEN history.id END) as won FROM ${TABLE_NAME} as history
+    LEFT JOIN public.games as games ON games.id = history.game_id
+    WHERE games.user_id = $1
+`
+
 export {
     deleteGameHistoryTable, 
     createGameHistoryTable, 
     insertGameHistoryRow,
-    closeGameHistoryRow
+    closeGameHistoryRow,
+    fetchGamesByUserId
 }

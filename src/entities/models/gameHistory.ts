@@ -17,3 +17,8 @@ export const GameHistoryMapper = (data: any): GameHistory => {
         closedAt: data.deleted_at
     }
 }
+
+export type TopGamer = {
+    userId: number,
+    wons: number
+}

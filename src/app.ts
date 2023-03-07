@@ -6,6 +6,7 @@ import { RequestWithPayload, UserPayload } from './entities/userPayload'
 import userRoutes from './routes/users'
 import authRoutes from './routes/auth'
 import gameRoutes from './routes/games'
+import statsRoutes from './routes/stats'
 
 const app: Express = express()
 
@@ -31,5 +32,6 @@ app.get('/', validateAccess, async(req: Request, res: Response) => {
 app.use( "/users", userRoutes )
 app.use("/auth", authRoutes)
 app.use("/game", gameRoutes)
+app.use("/stats", statsRoutes)
 
 export default app
