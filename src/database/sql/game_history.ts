@@ -31,10 +31,20 @@ const fetchGamesByUserId: string = `
     WHERE games.user_id = $1
 `
 
+const fetchMostWinnerUsers: string = `
+    SELECT games.user_id, count(history.won) as won FROM ${TABLE_NAME} as history
+    LEFT JOIN public.games as games ON games.id = history.game_id
+    WHERE history.won = TRUE
+    GROUP BY games.user_id
+    order BY count(history.won) DESC
+    LIMIT $1
+`
+
 export {
     deleteGameHistoryTable, 
     createGameHistoryTable, 
     insertGameHistoryRow,
     closeGameHistoryRow,
-    fetchGamesByUserId
+    fetchGamesByUserId,
+    fetchMostWinnerUsers
 }
